@@ -96,7 +96,42 @@ namespace p2Net1
 
 
        }
+       public Result redeemItem(string uid, string buildType)
+       {
+           /*	redeemItem
+          Inputs: UID, buildType (gold, gold10z, briefcase, bk1, bk2, bk3, bk4, bk5, bk6, bk7, bk8, bk9, bk10, weapon, mag, vehicle)
+          Outputs: UID, goldAmount, gold10z Amount, briefCase Amount, bk1 amount, ... , weapon name (if available), mag name (if available), vehicle name (if available)
+          Description: Writes to database to say an item has been used
+          */
+           string _url;
+           string _armaResponse;
 
+
+           _url = string.Format("http://192.223.27.54/1/bank/bank.php?uid={0}&process=Redeem&redeemtype={1}", uid, buildType);
+
+           HttpWebRequest _request = (HttpWebRequest)WebRequest.Create(_url);
+           HttpWebResponse _response = (HttpWebResponse)_request.GetResponse();
+           if (_response.StatusCode == HttpStatusCode.OK)
+           {
+               Stream _receiveStream = _response.GetResponseStream();
+               StreamReader _readStream = null;
+               if (_response.CharacterSet == null)
+                   _readStream = new StreamReader(_receiveStream);
+               else
+                   _readStream = new StreamReader(_receiveStream, Encoding.GetEncoding(_response.CharacterSet));
+               string _data = _readStream.ReadToEnd();
+               _response.Close();
+               _readStream.Close();
+               _armaResponse = _data;
+               //_armaResponse = "working";
+           }
+           else
+           {
+               _armaResponse = "[false,'Error In External DLL Extension']";
+           }
+           return new Result(@_armaResponse);
+
+       }
        public Result writeLog(string logName, string logMessage)
        {
            /*	Write to Log:
