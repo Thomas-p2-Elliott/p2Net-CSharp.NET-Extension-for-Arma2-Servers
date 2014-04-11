@@ -100,7 +100,7 @@ namespace p2Net1
        {
            /*	redeemItem
           Inputs: UID, buildType (gold, gold10z, briefcase, bk1, bk2, bk3, bk4, bk5, bk6, bk7, bk8, bk9, bk10, weapon, mag, vehicle)
-          Outputs: UID, goldAmount, gold10z Amount, briefCase Amount, bk1 amount, ... , weapon name (if available), mag name (if available), vehicle name (if available)
+          Outputs: OK or FAIL
           Description: Writes to database to say an item has been used
           */
            string _url;
