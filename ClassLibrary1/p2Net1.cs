@@ -147,7 +147,21 @@ namespace p2Net1
            _armaResponse = "100";
            return new Result(@_armaResponse);
        }
-
+       public Result writeLog2(string logName2, string logMessage2)
+       {
+           /*	Write to Log2:
+           Inputs: logName2, logMessage2
+           Outputs: C:\p2Arma2Net\Logs\logName.txt
+           Description: Writes logMessage to logName.txt
+           */
+           System.IO.StreamWriter logFile2 =
+               new System.IO.StreamWriter("X:\\p2Arma2Net\\Logs\\" + logName2 + ".txt", true);
+           logFile2.Write(logMessage2);
+           logFile2.Close();
+           string _armaResponse;
+           _armaResponse = "100";
+           return new Result(@_armaResponse);
+       }
         public Result readText(string fileName, string startOfLineReplacement, string newLineReplacement)
         {
             /* Read from File:
